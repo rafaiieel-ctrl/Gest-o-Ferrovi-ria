@@ -1,0 +1,7 @@
+{
+  "name": "Protótipo - Gestão Ferroviária",
+  "description": "Sistema de gestão de logística multimodal.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

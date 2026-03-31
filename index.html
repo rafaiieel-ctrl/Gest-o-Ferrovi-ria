@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Multimodal</title>
+    <link rel="icon" href="/public/logo.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --background: 0 0% 100%;
+        --foreground: 224 71.4% 4.1%;
+        --card: 0 0% 100%;
+        --card-foreground: 224 71.4% 4.1%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 224 71.4% 4.1%;
+        --primary: 221.2 83.2% 53.3%;
+        --primary-foreground: 210 20% 98%;
+        --secondary: 220 14.3% 95.9%;
+        --secondary-foreground: 220 8.9% 46.1%;
+        --muted: 220 14.3% 95.9%;
+        --muted-foreground: 220 8.9% 46.1%;
+        --accent: 220 14.3% 95.9%;
+        --accent-foreground: 224 71.4% 4.1%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 210 20% 98%;
+        --border: 220 13% 91%;
+        --input: 220 13% 91%;
+        --ring: 221.2 83.2% 53.3%;
+      }
+      .dark {
+        --background: 224 71.4% 4.1%;
+        --foreground: 210 20% 98%;
+        --card: 224 71.4% 4.1%;
+        --card-foreground: 210 20% 98%;
+        --popover: 224 71.4% 4.1%;
+        --popover-foreground: 210 20% 98%;
+        --primary: 217.2 91.2% 59.8%;
+        --primary-foreground: 210 20% 98%;
+        --secondary: 215 27.9% 16.9%;
+        --secondary-foreground: 210 20% 98%;
+        --muted: 215 27.9% 16.9%;
+        --muted-foreground: 217.9 10.6% 64.9%;
+        --accent: 215 27.9% 16.9%;
+        --accent-foreground: 210 20% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 20% 98%;
+        --border: 215 27.9% 16.9%;
+        --input: 215 27.9% 16.9%;
+        --ring: 217.2 91.2% 59.8%;
+      }
+      .dark select option {
+        background: hsl(var(--popover));
+        color: hsl(var(--popover-foreground));
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        background-image: 
+          radial-gradient(
+            1000px circle at var(--mouse-x, -1000px) var(--mouse-y, -1000px),
+            hsla(var(--primary), 0.12),
+            transparent 40%
+          );
+        transition: background-color .3s, color .3s;
+      }
+      @keyframes fadeIn {
+        from { 
+          opacity: 0; 
+          transform: translateY(20px) scale(0.98); 
+        }
+        to { 
+          opacity: 1; 
+          transform: translateY(0) scale(1); 
+        }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.6s cubic-bezier(0.21, 0.61, 0.35, 1) forwards;
+      }
+      
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      /* --- Executive Splash Screen Animations --- */
+      @keyframes fadeInUp {
+          from {
+              opacity: 0;
+              transform: translateY(20px);
+          }
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes backgroundGlow {
+          0% { background-size: 300% 300%; }
+          50% { background-size: 350% 350%; }
+          100% { background-size: 300% 300%; }
+      }
+      
+      /* New Executive Splash Screen Styles */
+      body.splash-active {
+        --blue-accent: #3b82f6;
+        --dark-bg: #05080E;
+        --card-bg: #0B101B;
+        --text-primary: #F8F9FA;
+        --text-secondary: #9CA3AF;
+        --border-color: rgba(255, 255, 255, 0.1);
+
+        min-height: 100vh;
+        background-color: var(--dark-bg);
+        background-image: radial-gradient(circle at center, rgba(30, 80, 150, 0.15), transparent 60%);
+        background-position: center;
+        animation: backgroundGlow 15s ease-in-out infinite;
+        color: var(--text-primary);
+        font-family: 'Inter', sans-serif;
+        overflow: hidden;
+      }
+      body.splash-active::before,
+      body.splash-active::after {
+          content: none;
+      }
+      
+      body.splash-active #root {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+      }
+      body.splash-active *, body.splash-active *::before, body.splash-active *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+      }
+
+      body.splash-active .splash-container {
+        width: min(450px, 90vw);
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 3rem 2.5rem;
+        text-align: center;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        position: relative;
+        z-index: 10;
+        backdrop-filter: blur(10px);
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      }
+      
+      /* Animated elements */
+      body.splash-active .splash-container > * {
+        opacity: 0;
+        animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+      }
+
+      body.splash-active .logo-container { animation-delay: 0.1s; }
+      body.splash-active h1 { animation-delay: 0.2s; }
+      body.splash-active p.slogan { animation-delay: 0.3s; }
+      body.splash-active .divider { animation-delay: 0.4s; }
+      body.splash-active .btn { animation-delay: 0.5s; }
+      body.splash-active .footer-text { animation-delay: 0.6s; }
+      
+      body.splash-active .logo-container {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 1.5rem;
+        background: transparent;
+        border: none;
+        display: grid;
+        place-items: center;
+        backdrop-filter: none;
+        transition: transform 0.3s ease;
+      }
+
+      body.splash-active .logo-container svg {
+          filter: drop-shadow(0 0 15px rgba(59, 130, 246, 0.4));
+          transition: filter 0.3s ease;
+      }
+      body.splash-active .logo-container:hover svg {
+          filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.6));
+      }
+      body.splash-active .logo-container:hover {
+        transform: scale(1.05);
+      }
+
+      body.splash-active h1 {
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        margin-bottom: 0.75rem;
+        color: var(--text-primary);
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+      body.splash-active p.slogan {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+      }
+      body.splash-active .divider {
+        width: 40px;
+        height: 2px;
+        margin: 0 auto 2rem;
+        background-color: var(--blue-accent);
+        border-radius: 1px;
+        box-shadow: 0 0 10px var(--blue-accent);
+      }
+      body.splash-active .btn {
+        background: transparent;
+        color: var(--text-primary);
+        border: 1px solid var(--border-color);
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+        width: 100%;
+        box-shadow: none;
+      }
+      body.splash-active .btn:hover {
+        background: var(--blue-accent);
+        border-color: var(--blue-accent);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px -5px rgba(59, 130, 246, 0.4);
+      }
+      body.splash-active .footer-text {
+        margin-top: 2rem;
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        opacity: 0.6;
+      }
+
+      @media (max-width: 480px) {
+        body.splash-active .splash-container {
+          padding: 2.5rem 1.5rem;
+        }
+        body.splash-active h1 {
+          font-size: 1.8rem;
+        }
+        body.splash-active p.slogan {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'background': 'hsl(var(--background))',
+              'foreground': 'hsl(var(--foreground))',
+              'card': 'hsl(var(--card))',
+              'card-foreground': 'hsl(var(--card-foreground))',
+              'popover': 'hsl(var(--popover))',
+              'popover-foreground': 'hsl(var(--popover-foreground))',
+              'primary': 'hsl(var(--primary))',
+              'primary-foreground': 'hsl(var(--primary-foreground))',
+              'secondary': 'hsl(var(--secondary))',
+              'secondary-foreground': 'hsl(var(--secondary-foreground))',
+              'muted': 'hsl(var(--muted))',
+              'muted-foreground': 'hsl(var(--muted-foreground))',
+              'accent': 'hsl(var(--accent))',
+              'accent-foreground': 'hsl(var(--accent-foreground))',
+              'destructive': 'hsl(var(--destructive))',
+              'destructive-foreground': 'hsl(var(--destructive-foreground))',
+              'border': 'hsl(var(--border))',
+              'input': 'hsl(var(--input))',
+              'ring': 'hsl(var(--ring))',
+              'brand': {
+                '500': '#3b82f6',
+                '600': '#2563eb'
+              },
+              'success': {
+                '500': '#22c55e',
+                '100': 'rgba(34, 197, 94, 0.1)'
+              },
+              'danger': {
+                '500': '#ef4444',
+                '100': 'rgba(239, 68, 68, 0.1)'
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://unpkg.com/@zxing/library@0.20.0"></script>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.27.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "@zxing/library": "https://aistudiocdn.com/@zxing/library@^0.21.3",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@6.25.1",
+    "react-router-dom/": "https://aistudiocdn.com/react-router-dom@6.25.1/",
+    "react-router": "https://aistudiocdn.com/react-router@6.25.1",
+    "react-router/": "https://aistudiocdn.com/react-router@6.25.1/"
+  }
+}
+</script>
+</head>
+  <body class="bg-background text-foreground">
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="grad-final" x1="0" y1="0" x2="192" y2="192" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#3B82F6"/>
+            <stop offset="1" stop-color="#2563EB"/>
+        </linearGradient>
+    </defs>
+    <rect width="192" height="192" rx="48" fill="url(#grad-final)"/>
+    <!-- BM Monogram -->
+    <path d="M52 140V52H84C106.091 52 124 69.9086 124 92C124 114.091 106.091 132 84 132H76M76 92H84M100 140L124 92L148 140" stroke="white" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
